@@ -29,11 +29,10 @@ export default function CVPreview({ data, isExporting }: Props) {
       <div
         id="cv-preview"
         style={{
-          position: 'fixed',
+          position: 'absolute',
           top: 0,
-          left: '-9999px',
+          left: '-10000px',
           width: '794px',
-          zIndex: -1,
           background: '#ffffff',
           pointerEvents: 'none',
         }}

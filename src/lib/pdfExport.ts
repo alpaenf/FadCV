@@ -4,21 +4,38 @@ export async function exportToPDF(elementId: string, fileName: string = 'CV-FadC
   const element = document.getElementById(elementId);
   if (!element) throw new Error('CV preview element not found');
 
+  // Temporarily move into viewport for accurate capture
+  element.style.left = '0px';
+  element.style.position = 'fixed';
+  element.style.top = '0px';
+  element.style.zIndex = '-999';
+  // Wait for layout to settle
+  await new Promise(r => setTimeout(r, 100));
+
   const html2canvas = (await import('html2canvas')).default;
   const { jsPDF } = await import('jspdf');
 
-  const canvas = await html2canvas(element, {
-    scale: 2,
-    useCORS: true,
-    allowTaint: true,
-    backgroundColor: '#ffffff',
-    logging: false,
-    width: 794,
-    height: element.scrollHeight,
-    windowWidth: 794,
-    scrollX: 0,
-    scrollY: 0,
-  });
+  let canvas;
+  try {
+    canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#ffffff',
+      logging: false,
+      width: 794,
+      height: element.scrollHeight,
+      windowWidth: 794,
+      scrollX: 0,
+      scrollY: 0,
+    });
+  } finally {
+    // Always restore position
+    element.style.left = '-10000px';
+    element.style.position = 'absolute';
+    element.style.top = '0px';
+    element.style.zIndex = '';
+  }
 
   const imgData = canvas.toDataURL('image/jpeg', 0.95);
   const pdf = new jsPDF({
@@ -37,14 +54,12 @@ export async function exportToPDF(elementId: string, fileName: string = 'CV-FadC
   } else {
     // Multi-page support
     let remain = imgHeight;
-    let position = 0;
     let page = 0;
 
     while (remain > 0) {
       if (page > 0) pdf.addPage();
       pdf.addImage(imgData, 'JPEG', 0, -(pdfHeight * page), pdfWidth, imgHeight);
       remain -= pdfHeight;
-      position += pdfHeight;
       page++;
     }
   }
