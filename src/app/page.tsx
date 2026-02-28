@@ -1009,8 +1009,6 @@ export default function HomePage() {
 
   useEffect(() => {
     setCvData(loadCV());
-    const existing = loadCV();
-    if (existing?.personalInfo?.fullName) setView('builder');
   }, []);
 
   const handleChange = useCallback((data: CVData) => {
