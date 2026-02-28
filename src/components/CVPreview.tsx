@@ -96,16 +96,16 @@ export default function CVPreview({ data, isExporting }: Props) {
         </AnimatePresence>
 
         {/* CV Page */}
-        <div className="flex justify-center p-6" style={{ width: 'max-content', minWidth: '100%' }}>
+        <div className="flex justify-center" style={{ padding: '24px', width: '100%', boxSizing: 'border-box' }}>
           <motion.div
             key={data.settings.template}
-            initial={{ opacity: 0, scale: 0.97 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
             style={{
-              transform: `scale(${zoom})`,
-              transformOrigin: 'top center',
+              zoom: zoom,
               width: '794px',
+              flexShrink: 0,
               boxShadow: '0 8px 48px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4)',
               borderRadius: '2px',
               overflow: 'hidden',
