@@ -13,8 +13,11 @@ export async function exportToPDF(elementId: string, fileName: string = 'CV-FadC
     allowTaint: true,
     backgroundColor: '#ffffff',
     logging: false,
-    width: element.scrollWidth,
+    width: 794,
     height: element.scrollHeight,
+    windowWidth: 794,
+    scrollX: 0,
+    scrollY: 0,
   });
 
   const imgData = canvas.toDataURL('image/jpeg', 0.95);

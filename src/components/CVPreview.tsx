@@ -25,6 +25,21 @@ export default function CVPreview({ data, isExporting }: Props) {
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column', position: 'relative' }}>
+      {/* Hidden full-resolution render target for PDF export */}
+      <div
+        id="cv-preview"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: '-9999px',
+          width: '794px',
+          zIndex: -1,
+          background: '#ffffff',
+          pointerEvents: 'none',
+        }}
+      >
+        <TemplateComponent data={data} />
+      </div>
       {/* Floating zoom controls */}
       <div
         style={{
@@ -95,7 +110,7 @@ export default function CVPreview({ data, isExporting }: Props) {
           )}
         </AnimatePresence>
 
-        {/* CV Page */}
+        {/* CV Page — display only (zoomed) */}
         <div className="flex justify-center" style={{ padding: '24px', width: '100%', boxSizing: 'border-box' }}>
           <motion.div
             key={data.settings.template}
