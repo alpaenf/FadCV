@@ -150,10 +150,10 @@ export default function CustomSectionsManager({ sections, onChange }: Props) {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="flex gap-2"
+            className="space-y-2"
           >
             <input
-              className={inputClass + ' flex-1'}
+              className={inputClass + ' w-full'}
               style={inputStyle}
               placeholder="Judul seksi baru (contoh: Penghargaan)"
               value={newTitle}
@@ -161,14 +161,22 @@ export default function CustomSectionsManager({ sections, onChange }: Props) {
               onKeyDown={(e) => e.key === 'Enter' && addSection()}
               autoFocus
             />
-            <button
-              onClick={addSection}
-              className="px-4 rounded-xl font-semibold text-sm"
-              style={{ background: 'linear-gradient(135deg, #ef4444, #b91c1c)', color: 'white' }}
-            >
-              Buat
-            </button>
-            <button onClick={() => setShowAdd(false)} style={{ color: '#a0a0b0' }}>✕</button>
+            <div className="flex gap-2">
+              <button
+                onClick={addSection}
+                className="flex-1 py-2.5 rounded-xl font-semibold text-sm"
+                style={{ background: 'linear-gradient(135deg, #ef4444, #b91c1c)', color: 'white' }}
+              >
+                Buat Seksi
+              </button>
+              <button
+                onClick={() => { setShowAdd(false); setNewTitle(''); }}
+                className="px-4 py-2.5 rounded-xl text-sm font-semibold"
+                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: '#a0a0b0' }}
+              >
+                Batal
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

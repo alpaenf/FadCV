@@ -1,5 +1,5 @@
 // Shared styles for form sections
-export const inputClass = `w-full px-3.5 py-3 rounded-xl text-sm font-medium input-glow transition-all duration-200`;
+export const inputClass = `w-full px-4 py-3 rounded-xl text-sm font-medium input-glow transition-all duration-200`;
 export const inputStyle = {
   background: 'rgba(255,255,255,0.05)',
   border: '1px solid rgba(255,255,255,0.1)',

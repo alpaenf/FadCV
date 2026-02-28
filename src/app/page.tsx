@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   FileText, Download, RefreshCw, LayoutGrid, PenLine, Layers2,
-  Sparkles, ArrowRight, Zap, Shield, Star, ChevronRight,
+  Sparkles, ArrowRight, ArrowLeft, Zap, Shield, Star, ChevronRight,
   MousePointer2, ClipboardList, SlidersHorizontal, FileDown, CheckCircle2,
   Eye,
 } from 'lucide-react';
@@ -31,17 +31,32 @@ function LandingPage({ onStart }: { onStart: () => void }) {
     {
       icon: Zap,
       title: 'Realtime Preview',
-      desc: 'Lihat perubahan CV kamu langsung saat mengetik — tanpa reload.',
+      desc: 'Lihat perubahan CV kamu langsung saat mengetik — tanpa reload, tanpa delay.',
     },
     {
       icon: Star,
       title: '3 Template Premium',
-      desc: 'Modern Professional, Minimal Elegant, dan Creative Layout.',
+      desc: 'Modern Professional, Minimal Elegant, dan Creative Layout siap pakai.',
     },
     {
       icon: Shield,
       title: '100% Privasi',
       desc: 'Data tersimpan hanya di browser kamu. Tidak ada server, tidak ada login.',
+    },
+    {
+      icon: FileDown,
+      title: 'Export PDF Berkualitas',
+      desc: 'Unduh CV dalam format PDF A4 siap cetak dan siap kirim ke rekruter.',
+    },
+    {
+      icon: SlidersHorizontal,
+      title: 'Kustomisasi Penuh',
+      desc: 'Atur warna aksen, ukuran font, urutan seksi, hingga seksi kustom sendiri.',
+    },
+    {
+      icon: CheckCircle2,
+      title: 'Simpan Otomatis',
+      desc: 'Setiap ketikan tersimpan otomatis. Data tidak hilang meski browser di-refresh.',
     },
   ];
 
@@ -51,7 +66,6 @@ function LandingPage({ onStart }: { onStart: () => void }) {
         minHeight: '100vh',
         background: '#0f1117',
         fontFamily: 'Poppins, sans-serif',
-        overflowX: 'hidden',
       }}
     >
       {/* ── Navbar ── */}
@@ -60,13 +74,16 @@ function LandingPage({ onStart }: { onStart: () => void }) {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.35 }}
         style={{
-          position: 'sticky',
+          position: 'fixed',
           top: 0,
-          zIndex: 50,
+          left: 0,
+          right: 0,
+          width: '100%',
+          zIndex: 100,
           height: '60px',
-          background: 'rgba(15,17,23,0.9)',
-          backdropFilter: 'blur(16px)',
-          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          background: 'rgba(15,17,23,0.92)',
+          backdropFilter: 'blur(20px)',
+          borderBottom: '1px solid rgba(255,255,255,0.07)',
         }}
       >
         <div
@@ -134,7 +151,7 @@ function LandingPage({ onStart }: { onStart: () => void }) {
       <section
         style={{
           position: 'relative',
-          padding: '80px 24px 72px',
+          padding: '140px 24px 72px',
           overflow: 'hidden',
         }}
       >
@@ -154,22 +171,7 @@ function LandingPage({ onStart }: { onStart: () => void }) {
             position: 'relative',
           }}
         >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.05 }}
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: '6px',
-              fontSize: '12px', fontWeight: 600,
-              padding: '5px 14px', borderRadius: '999px', marginBottom: '24px',
-              background: 'rgba(220,38,38,0.1)',
-              border: '1px solid rgba(220,38,38,0.22)',
-              color: '#ef4444',
-            }}
-          >
-            <Zap size={12} /> CV Builder Profesional · Gratis · Tanpa Login
-          </motion.div>
+          {/* Badge — removed */}
 
           {/* Headline */}
           <motion.h1
@@ -271,51 +273,70 @@ function LandingPage({ onStart }: { onStart: () => void }) {
       </section>
 
       {/* ── Features ── */}
-      <section style={{ padding: '0 24px 72px' }}>
-        <div
-          style={{
-            maxWidth: '900px',
-            margin: '0 auto',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap: '16px',
-          }}
-        >
-          {features.map((f, i) => {
-            const Icon = f.icon;
-            return (
-              <motion.div
-                key={f.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 + i * 0.07 }}
-                style={{
-                  borderRadius: '16px',
-                  padding: '20px 22px',
-                  background: '#13151e',
-                  border: '1px solid rgba(255,255,255,0.06)',
-                }}
-              >
-                <div
+      <section style={{ padding: '0 24px 80px' }}>
+        <div style={{ maxWidth: '940px', margin: '0 auto' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45 }}
+            style={{ textAlign: 'center', marginBottom: '40px' }}
+          >
+            <div style={{ display: 'inline-block', fontSize: '11px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: '#ef4444', marginBottom: '10px' }}>
+              Fitur
+            </div>
+            <div style={{ fontSize: 'clamp(1.4rem, 3vw, 1.9rem)', fontWeight: 800, color: '#f0f0f4', lineHeight: 1.25 }}>
+              Semua yang kamu butuhkan
+            </div>
+            <div style={{ fontSize: '14px', color: '#52525e', marginTop: '10px', maxWidth: '420px', margin: '10px auto 0', lineHeight: 1.65 }}>
+              Dirancang untuk membuat CV profesional dengan cepat, mudah, dan gratis — tanpa kompromi.
+            </div>
+          </motion.div>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gap: '16px',
+            }}
+          >
+            {features.map((f, i) => {
+              const Icon = f.icon;
+              return (
+                <motion.div
+                  key={f.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.06, duration: 0.4 }}
                   style={{
-                    width: '36px', height: '36px', borderRadius: '10px',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    marginBottom: '12px',
-                    background: 'rgba(220,38,38,0.1)',
-                    border: '1px solid rgba(220,38,38,0.18)',
+                    borderRadius: '16px',
+                    padding: '22px 24px',
+                    background: '#13151e',
+                    border: '1px solid rgba(255,255,255,0.06)',
                   }}
                 >
-                  <Icon size={16} color="#ef4444" />
-                </div>
-                <div style={{ fontSize: '14px', fontWeight: 700, color: '#e0e0e8', marginBottom: '6px' }}>
-                  {f.title}
-                </div>
-                <div style={{ fontSize: '13px', lineHeight: 1.6, color: '#5a5a6a' }}>
-                  {f.desc}
-                </div>
-              </motion.div>
-            );
-          })}
+                  <div
+                    style={{
+                      width: '38px', height: '38px', borderRadius: '10px',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      marginBottom: '14px',
+                      background: 'rgba(220,38,38,0.1)',
+                      border: '1px solid rgba(220,38,38,0.18)',
+                    }}
+                  >
+                    <Icon size={17} color="#ef4444" />
+                  </div>
+                  <div style={{ fontSize: '14px', fontWeight: 700, color: '#e0e0e8', marginBottom: '7px' }}>
+                    {f.title}
+                  </div>
+                  <div style={{ fontSize: '13px', lineHeight: 1.65, color: '#52525e' }}>
+                    {f.desc}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -583,6 +604,120 @@ function LandingPage({ onStart }: { onStart: () => void }) {
         </div>
       </section>
 
+      {/* ── Testimonials ── */}
+      <section style={{ padding: '0 24px 80px' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45 }}
+            style={{ textAlign: 'center', marginBottom: '36px' }}
+          >
+            <div style={{ display: 'inline-block', fontSize: '11px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: '#ef4444', marginBottom: '10px' }}>
+              Testimoni
+            </div>
+            <div style={{ fontSize: 'clamp(1.4rem, 3vw, 1.9rem)', fontWeight: 800, color: '#f0f0f4', lineHeight: 1.25 }}>
+              Apa kata mereka?
+            </div>
+          </motion.div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
+            {[
+              {
+                name: 'Rizky Aditya',
+                role: 'Fresh Graduate · Teknik Informatika',
+                avatar: 'RA',
+                text: 'FadCV beneran ngebantu banget. Dalam 20 menit CV-ku udah jadi dan langsung bisa di-download. Templatenya clean banget!',
+                stars: 5,
+              },
+              {
+                name: 'Sari Wulandari',
+                role: 'Marketing Executive',
+                avatar: 'SW',
+                text: 'Paling suka fitur preview langsung. Bisa lihat hasilnya real-time tanpa harus export dulu. Hemat waktu banget.',
+                stars: 5,
+              },
+              {
+                name: 'Dimas Pratama',
+                role: 'UI/UX Designer',
+                avatar: 'DP',
+                text: 'Template Creative Layout-nya sesuai banget buat portfolio designer kayak aku. Desainnya modern dan profesional.',
+                stars: 5,
+              },
+              {
+                name: 'Aulia Fitri',
+                role: 'Mahasiswa Semester Akhir',
+                avatar: 'AF',
+                text: 'Gak perlu login, gak perlu bayar. Data aman di browser sendiri. Ini yang aku cari-cari selama ini!',
+                stars: 5,
+              },
+              {
+                name: 'Bagas Nugroho',
+                role: 'Software Engineer',
+                avatar: 'BN',
+                text: 'Fitur custom section-nya keren. Aku bisa tambah seksi Publikasi dan Open Source yang biasanya gak ada di template lain.',
+                stars: 5,
+              },
+              {
+                name: 'Mega Cahyani',
+                role: 'HRD · 3 tahun pengalaman',
+                avatar: 'MC',
+                text: 'Sebagai HRD, CV dari FadCV selalu mudah dibaca dan layout-nya rapi. Kandidat yang pakai ini langsung keliatan profesional.',
+                stars: 5,
+              },
+            ].map((t, i) => (
+              <motion.div
+                key={t.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.07, duration: 0.4 }}
+                style={{
+                  borderRadius: '16px',
+                  padding: '20px 22px',
+                  background: '#13151e',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '14px',
+                }}
+              >
+                {/* Stars */}
+                <div style={{ display: 'flex', gap: '3px' }}>
+                  {Array.from({ length: t.stars }).map((_, j) => (
+                    <Star key={j} size={13} fill="#f59e0b" color="#f59e0b" />
+                  ))}
+                </div>
+                {/* Quote */}
+                <div style={{ fontSize: '13px', lineHeight: 1.7, color: '#7a7a8a', flex: 1 }}>
+                  "{t.text}"
+                </div>
+                {/* Author */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div
+                    style={{
+                      width: '36px', height: '36px', borderRadius: '50%',
+                      background: 'linear-gradient(135deg, rgba(220,38,38,0.3), rgba(185,28,28,0.15))',
+                      border: '1px solid rgba(220,38,38,0.25)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: '11px', fontWeight: 700, color: '#ef4444',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {t.avatar}
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '13px', fontWeight: 700, color: '#e0e0e8' }}>{t.name}</div>
+                    <div style={{ fontSize: '11px', color: '#44445a', marginTop: '1px' }}>{t.role}</div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── FAQ ── */}
       <section style={{ padding: '0 24px 80px' }}>
         <div style={{ maxWidth: '640px', margin: '0 auto' }}>
@@ -657,6 +792,78 @@ function LandingPage({ onStart }: { onStart: () => void }) {
                 </div>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── About ── */}
+      <section style={{ padding: '0 24px 80px' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45 }}
+            style={{ textAlign: 'center', marginBottom: '40px' }}
+          >
+            <div style={{ display: 'inline-block', fontSize: '11px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: '#ef4444', marginBottom: '10px' }}>
+              Tentang
+            </div>
+            <div style={{ fontSize: 'clamp(1.4rem, 3vw, 1.9rem)', fontWeight: 800, color: '#f0f0f4', lineHeight: 1.25 }}>
+              Apa itu FadCV?
+            </div>
+          </motion.div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', alignItems: 'center' }}>
+            {/* Left: description */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
+            >
+              <p style={{ fontSize: '15px', lineHeight: 1.8, color: '#7a7a8a' }}>
+                <strong style={{ color: '#e0e0e8' }}>FadCV</strong> adalah aplikasi pembuat CV berbasis web yang dirancang untuk membantu siapa saja — dari fresh graduate hingga profesional berpengalaman — membuat CV yang memukau dengan cepat dan mudah.
+              </p>
+              <p style={{ fontSize: '15px', lineHeight: 1.8, color: '#7a7a8a' }}>
+                Dibangun dengan filosofi <strong style={{ color: '#e0e0e8' }}>privasi utama</strong> — semua data CV kamu tersimpan sepenuhnya di browser, bukan di server kami. Tidak ada akun, tidak ada tracking, tidak ada biaya.
+              </p>
+              <p style={{ fontSize: '15px', lineHeight: 1.8, color: '#7a7a8a' }}>
+                Proyek ini dibuat dengan <span style={{ color: '#ef4444' }}>❤</span> sebagai solusi gratis dan open untuk semua pencari kerja di Indonesia.
+              </p>
+            </motion.div>
+
+            {/* Right: stats cards */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}
+            >
+              {[
+                { value: '3+', label: 'Template Premium', icon: Star },
+                { value: '8+', label: 'Seksi CV', icon: ClipboardList },
+                { value: '0', label: 'Data ke Server', icon: Shield },
+                { value: '100%', label: 'Gratis Selamanya', icon: CheckCircle2 },
+              ].map(({ value, label, icon: Icon }, i) => (
+                <div
+                  key={label}
+                  style={{
+                    borderRadius: '14px',
+                    padding: '18px 16px',
+                    background: '#13151e',
+                    border: '1px solid rgba(255,255,255,0.06)',
+                    textAlign: 'center',
+                  }}
+                >
+                  <Icon size={18} color="#ef4444" style={{ marginBottom: '8px' }} />
+                  <div className="gradient-text" style={{ fontSize: '22px', fontWeight: 800, lineHeight: 1 }}>{value}</div>
+                  <div style={{ fontSize: '11px', color: '#4a4a5a', marginTop: '5px', lineHeight: 1.4 }}>{label}</div>
+                </div>
+              ))}
+            </motion.div>
           </div>
         </div>
       </section>
@@ -877,34 +1084,34 @@ export default function HomePage() {
       <header
         style={{
           flexShrink: 0,
-          height: '56px',
+          height: '52px',
           display: 'flex',
           alignItems: 'center',
-          padding: '0 16px',
+          padding: '0 12px',
           gap: '12px',
           background: '#13151e',
           borderBottom: '1px solid rgba(255,255,255,0.06)',
           zIndex: 100,
+          margin: '8px 10px 0',
+          borderRadius: '14px',
+          border: '1px solid rgba(255,255,255,0.07)',
         }}
       >
-        {/* Back / Logo */}
-        <button
+        {/* Back button */}
+        <motion.button
           onClick={() => setView('landing')}
+          whileHover={{ x: -2 }}
+          whileTap={{ scale: 0.95 }}
           style={{
-            display: 'flex', alignItems: 'center', gap: '8px',
-            background: 'none', border: 'none', cursor: 'pointer',
-            padding: '4px', borderRadius: '8px',
-            flexShrink: 0,
+            display: 'flex', alignItems: 'center', gap: '6px',
+            background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.09)',
+            cursor: 'pointer', padding: '6px 12px', borderRadius: '8px',
+            flexShrink: 0, color: '#a0a0b0', fontSize: '12px', fontWeight: 600,
           }}
         >
-          <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: 'linear-gradient(135deg,#ef4444,#b91c1c)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <FileText size={14} color="white" />
-          </div>
-          <span style={{ fontWeight: 700, fontSize: '14px', letterSpacing: '-0.3px', lineHeight: 1 }}>
-            <span className="gradient-text">Fad</span>
-            <span style={{ color: '#f0f0f0' }}>CV</span>
-          </span>
-        </button>
+          <ArrowLeft size={14} />
+          <span className="hidden-mobile">Beranda</span>
+        </motion.button>
 
         {/* Divider — hidden on mobile */}
         <div className="hidden-mobile" style={{ width: '1px', height: '20px', background: 'rgba(255,255,255,0.08)', flexShrink: 0 }} />
@@ -997,7 +1204,7 @@ export default function HomePage() {
             })}
           </div>
           {/* Desktop scroll content */}
-          <div style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
+          <div style={{ flex: 1, overflowY: 'auto', padding: '20px 16px' }}>
             <SidebarContent tab={activeTab} cvData={cvData} handleChange={handleChange} />
           </div>
         </div>
@@ -1025,13 +1232,13 @@ export default function HomePage() {
         </div>
 
         {/* Mobile content area */}
-        <div style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden' }}>
+        <div style={{ flex: 1, overflowY: 'auto', overflowX: mobileTab === 'preview' ? 'auto' : 'hidden' }}>
           {mobileTab === 'preview' ? (
-            <div style={{ height: '100%', minHeight: '400px', background: '#0c0d14' }}>
+            <div style={{ height: '100%', minHeight: '400px', background: '#0c0d14', position: 'relative' }}>
               <CVPreview data={cvData} isExporting={isExporting} />
             </div>
           ) : (
-            <div style={{ padding: '16px 16px 88px' }}>
+            <div style={{ padding: '20px 16px 88px' }}>
               <SidebarContent tab={mobileTab as TabId} cvData={cvData} handleChange={handleChange} />
             </div>
           )}

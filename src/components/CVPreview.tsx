@@ -29,35 +29,35 @@ export default function CVPreview({ data, isExporting }: Props) {
       <div
         style={{
           position: 'absolute', bottom: '16px', right: '16px', zIndex: 20,
-          display: 'flex', alignItems: 'center', gap: '4px',
-          background: 'rgba(19,21,30,0.92)', backdropFilter: 'blur(8px)',
-          border: '1px solid rgba(255,255,255,0.08)',
-          borderRadius: '10px', padding: '4px 8px',
+          display: 'flex', alignItems: 'center', gap: '2px',
+          background: 'rgba(19,21,30,0.95)', backdropFilter: 'blur(8px)',
+          border: '1px solid rgba(255,255,255,0.10)',
+          borderRadius: '12px', padding: '4px 6px',
         }}
       >
         <button
           onClick={() => setZoom(Math.max(0.3, zoom - 0.1))}
-          style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#808090', padding: '3px', display: 'flex', borderRadius: '6px' }}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#909090', padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', minWidth: '36px', minHeight: '36px' }}
           title="Perkecil"
         >
-          <ZoomOut size={13} />
+          <ZoomOut size={16} />
         </button>
-        <span style={{ fontSize: '10px', fontFamily: 'monospace', color: '#606070', minWidth: '30px', textAlign: 'center' }}>
+        <span style={{ fontSize: '11px', fontFamily: 'monospace', color: '#707080', minWidth: '34px', textAlign: 'center', fontWeight: 600 }}>
           {Math.round(zoom * 100)}%
         </span>
         <button
-          onClick={() => setZoom(Math.min(1, zoom + 0.1))}
-          style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#808090', padding: '3px', display: 'flex', borderRadius: '6px' }}
+          onClick={() => setZoom(Math.min(1.5, zoom + 0.1))}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#909090', padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', minWidth: '36px', minHeight: '36px' }}
           title="Perbesar"
         >
-          <ZoomIn size={13} />
+          <ZoomIn size={16} />
         </button>
         <button
-          onClick={() => setZoom(0.65)}
-          style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#808090', padding: '3px', display: 'flex', borderRadius: '6px' }}
+          onClick={() => setZoom(0.55)}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#909090', padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', minWidth: '36px', minHeight: '36px' }}
           title="Reset zoom"
         >
-          <Maximize2 size={13} />
+          <Maximize2 size={16} />
         </button>
       </div>
 
@@ -96,7 +96,7 @@ export default function CVPreview({ data, isExporting }: Props) {
         </AnimatePresence>
 
         {/* CV Page */}
-        <div className="flex justify-center p-6" style={{ minWidth: `${794 * zoom + 48}px` }}>
+        <div className="flex justify-center p-6" style={{ width: 'max-content', minWidth: '100%' }}>
           <motion.div
             key={data.settings.template}
             initial={{ opacity: 0, scale: 0.97 }}

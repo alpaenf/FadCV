@@ -10,7 +10,7 @@ interface Props {
   onChange: (data: PersonalInfo) => void;
 }
 
-const inputClass = `w-full px-3.5 py-3 rounded-xl text-sm font-medium input-glow transition-all duration-200`;
+const inputClass = `w-full px-4 py-3 rounded-xl text-sm font-medium input-glow transition-all duration-200`;
 const inputStyle = {
   background: 'rgba(255,255,255,0.05)',
   border: '1px solid rgba(255,255,255,0.1)',
@@ -128,7 +128,7 @@ export default function PersonalInfoSection({ data, onChange }: Props) {
       </div>
 
       {/* Contact fields */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4">
         {([
           { key: 'email', label: 'Email *', placeholder: 'john@example.com' },
           { key: 'phone', label: 'No. Telepon *', placeholder: '+62 812 3456 7890' },

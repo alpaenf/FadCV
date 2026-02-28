@@ -22,21 +22,21 @@ interface Props {
 
 export default function CVSettingsPanel({ settings, onChange }: Props) {
   return (
-    <div className="rounded-xl p-4 mb-4" style={{ background: '#161922', border: '1px solid rgba(255,255,255,0.06)' }}>
+    <div className="rounded-xl p-5 mb-4" style={{ background: '#161922', border: '1px solid rgba(255,255,255,0.06)' }}>
       {/* Accent Color */}
-      <div className="mb-5">
+      <div className="mb-6">
         <div className="flex items-center gap-2 mb-3">
           <Palette size={14} color="#ef4444" />
           <span className="text-xs font-bold" style={{ color: '#a0a0b0' }}>Warna Aksen</span>
         </div>
-        <div className="flex flex-wrap gap-2.5">
+        <div className="flex flex-wrap gap-3">
           {ACCENT_COLORS.map((color) => (
             <motion.button
               key={color}
               whileHover={{ scale: 1.15 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => onChange({ ...settings, accentColor: color })}
-              className="w-8 h-8 rounded-full border-2 transition-all"
+              className="w-9 h-9 rounded-full border-2 transition-all"
               style={{
                 background: color,
                 borderColor: settings.accentColor === color ? 'white' : 'transparent',
@@ -60,7 +60,7 @@ export default function CVSettingsPanel({ settings, onChange }: Props) {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => onChange({ ...settings, fontSize: size })}
-              className="flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all"
+              className="flex-1 py-2.5 rounded-lg text-xs font-semibold transition-all"
               style={{
                 background: settings.fontSize === size ? 'rgba(220, 38, 38, 0.2)' : 'rgba(255,255,255,0.05)',
                 color: settings.fontSize === size ? '#ef4444' : '#606070',

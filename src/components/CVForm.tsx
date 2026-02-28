@@ -116,7 +116,7 @@ export default function CVForm({ data, onChange }: Props) {
                 className="overflow-hidden"
               >
                 <div
-                  className="px-5 pb-6 border-t"
+                  className="px-4 pb-6 border-t"
                   style={{ borderColor: 'rgba(220, 38, 38, 0.1)', paddingTop: '20px' }}
                 >
                   {id === 'personal' && (
@@ -131,7 +131,7 @@ export default function CVForm({ data, onChange }: Props) {
                         Ringkasan Profil Singkat
                       </label>
                       <textarea
-                        className="w-full px-3.5 py-3 rounded-xl text-sm font-medium input-glow transition-all duration-200"
+                        className="w-full px-4 py-3 rounded-xl text-sm font-medium input-glow transition-all duration-200"
                         style={{
                           background: 'rgba(255,255,255,0.05)',
                           border: '1px solid rgba(255,255,255,0.1)',

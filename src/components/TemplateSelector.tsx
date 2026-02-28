@@ -86,7 +86,7 @@ const PreviewMap = {
 
 export default function TemplateSelector({ selected, onSelect, accentColor = '#dc2626' }: Props) {
   return (
-    <div className="rounded-xl p-4 mb-4" style={{ background: '#161922', border: '1px solid rgba(255,255,255,0.06)' }}>
+    <div className="rounded-xl p-5 mb-4" style={{ background: '#161922', border: '1px solid rgba(255,255,255,0.06)' }}>
       <h3 className="text-sm font-bold mb-4" style={{ color: '#f8f8f8' }}>
         Pilih Template
       </h3>
@@ -99,17 +99,17 @@ export default function TemplateSelector({ selected, onSelect, accentColor = '#d
               onClick={() => onSelect(tpl.id)}
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
-              className="relative flex flex-col items-center p-2.5 rounded-xl transition-all"
+              className="relative flex flex-col items-center p-3 rounded-xl transition-all"
               style={{
                 border: `2px solid ${selected === tpl.id ? accentColor : 'rgba(255,255,255,0.07)'}`,
                 background: selected === tpl.id ? `${accentColor}14` : 'rgba(18,18,26,0.9)',
                 boxShadow: selected === tpl.id ? `0 4px 20px ${accentColor}25` : 'none',
               }}
             >
-              <div className="w-full mb-2 rounded overflow-hidden" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>
+              <div className="w-full mb-3 rounded overflow-hidden" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>
                 <PreviewComp accent={accentColor} />
               </div>
-              <span className="text-xs font-semibold text-center leading-tight" style={{ color: selected === tpl.id ? accentColor : '#a0a0b0' }}>
+              <span className="text-xs font-semibold text-center leading-tight mt-0.5" style={{ color: selected === tpl.id ? accentColor : '#a0a0b0' }}>
                 {tpl.label}
               </span>
               <span className="text-xs text-center leading-tight" style={{ color: '#404050', fontSize: '10px' }}>
