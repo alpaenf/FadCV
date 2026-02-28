@@ -10,6 +10,9 @@ import {
 } from 'lucide-react';
 import CVForm from '@/components/CVForm';
 import CVPreview from '@/components/CVPreview';
+import ModernProfessional from '@/templates/ModernProfessional';
+import MinimalElegant from '@/templates/MinimalElegant';
+import CreativeLayout from '@/templates/CreativeLayout';
 import TemplateSelector from '@/components/TemplateSelector';
 import CVSettingsPanel from '@/components/CVSettingsPanel';
 import SectionOrderManager from '@/components/SectionOrderManager';
@@ -1073,6 +1076,9 @@ export default function HomePage() {
     { id: 'preview' as const, label: 'Preview', icon: Eye },
   ];
 
+  const cvTemplates = { modern: ModernProfessional, minimal: MinimalElegant, creative: CreativeLayout };
+  const HiddenTemplate = cvTemplates[cvData.settings.template] || ModernProfessional;
+
   return (
     <motion.div
       key="builder"
@@ -1081,6 +1087,21 @@ export default function HomePage() {
       transition={{ duration: 0.2 }}
       style={{ height: '100dvh', display: 'flex', flexDirection: 'column', overflow: 'hidden', background: '#0f1117', fontFamily: 'Poppins, sans-serif' }}
     >
+      {/* Always-mounted hidden render target for PDF export */}
+      <div
+        id="cv-preview"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: '-10000px',
+          width: '794px',
+          background: '#ffffff',
+          pointerEvents: 'none',
+          zIndex: -1,
+        }}
+      >
+        <HiddenTemplate data={cvData} />
+      </div>
       {/* ════ HEADER ════ */}
       <header
         style={{

@@ -25,20 +25,6 @@ export default function CVPreview({ data, isExporting }: Props) {
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column', position: 'relative' }}>
-      {/* Hidden full-resolution render target for PDF export */}
-      <div
-        id="cv-preview"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: '-10000px',
-          width: '794px',
-          background: '#ffffff',
-          pointerEvents: 'none',
-        }}
-      >
-        <TemplateComponent data={data} />
-      </div>
       {/* Floating zoom controls */}
       <div
         style={{
