@@ -27,6 +27,14 @@ type TabId = 'template' | 'content' | 'layout';
 
 /* ─── Landing page ────────────────────────────────────────── */
 function LandingPage({ onStart }: { onStart: () => void }) {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   const features = [
     {
       icon: Zap,
@@ -80,52 +88,47 @@ function LandingPage({ onStart }: { onStart: () => void }) {
           right: 0,
           width: '100%',
           zIndex: 100,
-          height: '60px',
-          background: 'rgba(15,17,23,0.92)',
-          backdropFilter: 'blur(20px)',
-          borderBottom: '1px solid rgba(255,255,255,0.07)',
+          pointerEvents: 'none',
         }}
       >
-        <div
+        <motion.div
+          animate={scrolled ? {
+            background: 'rgba(15,17,23,0.88)',
+            boxShadow: '0 4px 32px rgba(0,0,0,0.45)',
+            borderRadius: '999px',
+            marginTop: '10px',
+            marginLeft: '24px',
+            marginRight: '24px',
+            paddingLeft: '20px',
+            paddingRight: '12px',
+            border: '1px solid rgba(255,255,255,0.10)',
+            backdropFilter: 'blur(24px)',
+          } : {
+            background: 'rgba(15,17,23,0.0)',
+            boxShadow: 'none',
+            borderRadius: '0px',
+            marginTop: '0px',
+            marginLeft: '0px',
+            marginRight: '0px',
+            paddingLeft: '24px',
+            paddingRight: '24px',
+            border: '1px solid rgba(255,255,255,0.0)',
+            backdropFilter: 'blur(0px)',
+          }}
+          transition={{ duration: 0.35, ease: 'easeInOut' }}
           style={{
-            maxWidth: '1100px',
-            margin: '0 auto',
-            padding: '0 24px',
-            height: '100%',
+            height: '60px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
+            pointerEvents: 'all',
           }}
         >
-          {/* Logo */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <div
-              style={{
-                width: '32px', height: '32px', borderRadius: '8px',
-                background: 'linear-gradient(135deg,#ef4444,#b91c1c)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                flexShrink: 0,
-              }}
-            >
-              <FileText size={15} color="white" />
-            </div>
-            <span style={{ fontWeight: 700, fontSize: '15px', letterSpacing: '-0.3px' }}>
-              <span className="gradient-text">Fad</span>
-              <span style={{ color: '#f0f0f0' }}>CV</span>
-            </span>
-            <span
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: '4px',
-                fontSize: '11px', fontWeight: 600,
-                padding: '2px 8px', borderRadius: '999px',
-                background: 'rgba(220,38,38,0.12)',
-                color: '#ef4444',
-                border: '1px solid rgba(220,38,38,0.2)',
-              }}
-            >
-              <Sparkles size={10} /> Free
-            </span>
-          </div>
+          {/* Logo — text only */}
+          <span style={{ fontWeight: 800, fontSize: '18px', letterSpacing: '-0.5px', cursor: 'default' }}>
+            <span className="gradient-text">Fad</span>
+            <span style={{ color: '#f0f0f0' }}>CV</span>
+          </span>
 
           {/* CTA */}
           <motion.button
@@ -134,7 +137,7 @@ function LandingPage({ onStart }: { onStart: () => void }) {
             whileTap={{ scale: 0.96 }}
             style={{
               display: 'flex', alignItems: 'center', gap: '6px',
-              padding: '8px 18px', borderRadius: '10px',
+              padding: '8px 18px', borderRadius: '999px',
               fontSize: '13px', fontWeight: 700,
               background: 'linear-gradient(135deg,#ef4444,#b91c1c)',
               color: 'white',
@@ -144,7 +147,7 @@ function LandingPage({ onStart }: { onStart: () => void }) {
           >
             Mulai Buat CV <ChevronRight size={14} />
           </motion.button>
-        </div>
+        </motion.div>
       </motion.nav>
 
       {/* ── Hero ── */}
